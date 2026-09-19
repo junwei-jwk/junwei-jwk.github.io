@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy — Tally</title>
+<meta name="description" content="What Tally collects, why, where it is stored, and how to delete it.">
+<link rel="icon" href="assets/logo-120.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <img src="assets/logo-512.png" alt="">
+    <div>
+      <div class="name">Tally</div>
+      <div class="tag">A personal expense tracker</div>
+    </div>
+  </header>
+
+  <h1>Privacy policy</h1>
+  <p class="meta">Last updated: 19 September 2026</p>
+  <p class="lede">
+    Tally is a personal expense tracker. This policy covers the Tally Android app. There is no
+    public web service; if one is added, this policy will be updated to describe it before it
+    goes live.
+  </p>
+  <p class="meta">
+    This policy is written from what the app's code actually does. It is not legal advice and
+    has not been reviewed by a lawyer.
+  </p>
+
+  <h2>Who this is for</h2>
+  <p>
+    Tally is built for its owner's own use and is not distributed to the public. If you are
+    reading this because you were invited to try it, the same terms apply to you.
+  </p>
+
+  <h2>What Tally collects, and why</h2>
+
+  <h3>To sign you in</h3>
+  <p>
+    If you choose "Continue with Google," Google shares your name, email address and profile
+    picture with Tally's sign-in provider (Supabase Auth) so it can create or recognise your
+    account. Tally never sees or stores your Google password, and never asks Google for
+    anything beyond confirming who you are — no access to your Gmail, your contacts, or any
+    other Google product — unless you separately and explicitly turn on Gmail-based
+    auto-capture, described below.
+  </p>
+
+  <h3>The data you enter</h3>
+  <p>
+    Amounts, categories, merchants, payees and notes that you add, or that auto-capture reads
+    from a bank notification or a bank's own email. This is the whole point of the app. It is
+    stored in a Postgres database operated by Supabase, encrypted in transit and at rest by
+    Supabase's infrastructure. Row-level security ties every row to your account: no other
+    account can read or write it, including other Tally users if more than one person ever
+    uses this deployment.
+  </p>
+
+  <h3>If you turn on Gmail auto-capture</h3>
+  <p>
+    Tally asks Google for read-only access to your Gmail (<code>gmail.readonly</code>) and
+    requests only mail sent from a fixed list of bank, payment-provider and marketplace
+    domains. That list is compiled into the app, and every message that comes back is checked
+    against it a second time on your device before it is read at all.
+  </p>
+  <div class="card">
+    <h3>The complete sender list</h3>
+    <ul class="domains">
+      <li>dbs.com</li><li>dbs.com.sg</li><li>posb.com.sg</li><li>ocbc.com</li>
+      <li>ocbc.com.sg</li><li>uob.com.sg</li><li>uobgroup.com</li><li>hsbc.com</li>
+      <li>hsbc.com.sg</li><li>citibank.com</li><li>citibank.com.sg</li><li>citi.com</li>
+      <li>sc.com</li><li>standardchartered.com</li><li>maybank.com.sg</li>
+      <li>maybank2u.com.sg</li><li>cimb.com</li><li>trustbank.sg</li><li>gxs.com.sg</li>
+      <li>maribank.sg</li><li>americanexpress.com</li><li>aexp.com</li><li>revolut.com</li>
+      <li>wise.com</li><li>youtrip.com</li><li>atome.sg</li><li>shopee.sg</li>
+      <li>shopee.com</li><li>mail.shopee.sg</li><li>lazada.sg</li><li>lazada.com</li>
+      <li>tiktok.com</li><li>tiktokshop.com</li><li>shop.tiktok.com</li>
+    </ul>
+  </div>
+  <p>
+    Mail from any other sender is never fetched, never read and never stored. From a matching
+    message Tally keeps only the amount, the merchant, the last four digits of a card, the
+    transaction reference and time the bank stated, and a one-way fingerprint of the message
+    used solely to recognise a repeat of the same alert. For a marketplace order confirmation
+    it also keeps the order number, the seller and the line items, so a card charge can be
+    matched to what it paid for. <strong>The subject line and the body of an email are never
+    stored and never transmitted anywhere.</strong> You can revoke this access at any time from
+    your <a href="https://myaccount.google.com/permissions">Google Account permissions page</a>.
+  </p>
+
+  <h3>Limited use of Google user data</h3>
+  <p>
+    Tally's use and transfer of information received from Google APIs adheres to the
+    <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API
+    Services User Data Policy</a>, including its Limited Use requirements. Data obtained from
+    Gmail is used only to provide and improve the expense-capture feature you turned on. It is
+    not transferred to anyone else except as necessary to provide that feature, to comply with
+    applicable law, or as part of a merger or acquisition with notice to you. It is not used
+    for advertising, and it is not used to develop, improve or train generalised machine
+    learning or artificial intelligence models. No human reads it.
+  </p>
+
+  <h2>What Tally does not do</h2>
+  <ul>
+    <li>It does not sell, rent, or share your data with any third party.</li>
+    <li>It does not show ads or use your data for advertising.</li>
+    <li>It does not use your data to train any machine-learning model.</li>
+    <li>It does not read any email outside the sender list above, even when Gmail
+        auto-capture is on.</li>
+    <li>It does not track you across other apps or websites.</li>
+  </ul>
+
+  <h2>Where data lives</h2>
+  <ul>
+    <li><strong>On your phone:</strong> a local database, which is the source of truth while
+        you are offline.</li>
+    <li><strong>In the cloud:</strong> Supabase (Postgres), so the same account sees the same
+        data on more than one device.</li>
+    <li><strong>Nowhere else.</strong> Optional agent features (automatic categorisation,
+        anomaly detection) would send a merchant name and an amount to Anthropic's Claude API
+        if that feature were enabled. As of the date above it is not enabled, so no data
+        leaves Supabase for this purpose. If that changes, this policy changes first.</li>
+  </ul>
+
+  <h2>How long it is kept</h2>
+  <p>
+    Your entries are kept for as long as your account exists, because an expense tracker that
+    forgets last year is not one. Deleted entries are marked deleted rather than erased
+    immediately, so that a device which has been offline learns about the deletion when it
+    reconnects; they are erased on request along with the rest of your account.
+  </p>
+
+  <h2>Deleting your data</h2>
+  <p>
+    Email the contact address below and ask for your account to be deleted. Your rows in
+    Supabase and the account itself will be removed, and nothing is retained afterwards.
+    Uninstalling the app removes the copy on your phone. Revoking the Google connection at
+    <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>
+    stops future sign-ins and stops all mail access, but does not by itself delete data already
+    stored in Supabase — ask, and it will be deleted.
+  </p>
+
+  <h2>Children</h2>
+  <p>Tally is not directed at children under 13 and is not knowingly provided to them.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    If what the app collects or does changes, this page changes with it. The date at the top is
+    the date of the most recent change, and this page is version-controlled alongside the code
+    that does the collecting.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Tally is operated by its owner, reachable at
+    <a href="mailto:jasovibeaiz@gmail.com">jasovibeaiz@gmail.com</a>. Questions about this
+    policy, requests for a copy of your data, and deletion requests all go to that address.
+  </p>
+
+  <nav class="pages">
+    <a href="./">Home</a>
+    <a href="terms.html">Terms of service</a>
+  </nav>
+
+  <footer>
+    <span>Tally — a personal expense tracker.</span>
+    <span>Contact: <a href="mailto:jasovibeaiz@gmail.com">jasovibeaiz@gmail.com</a></span>
+  </footer>
+
+</div>
+</body>
+</html>
